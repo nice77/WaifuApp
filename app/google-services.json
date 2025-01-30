@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "380094128421",
+    "project_id": "waifuapp-3f357",
+    "storage_bucket": "waifuapp-3f357.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380094128421:android:b8bbf7aa69b3c6b0b1facc",
+        "android_client_info": {
+          "package_name": "ru.kpfu.minn.waifuapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQzsQfQ2lbR3IJW8U0ofRQeBIwPdyA64A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
