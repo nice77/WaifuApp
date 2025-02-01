@@ -4,6 +4,7 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestoreException
 import javax.inject.Inject
 
@@ -19,11 +20,12 @@ class ExceptionHandlerDelegate @Inject constructor() {
 
     private fun handleAuthException(exception: FirebaseAuthException): AppException =
         when (exception) {
-            is FirebaseAuthInvalidCredentialsException -> {
+            is FirebaseAuthInvalidCredentialsException ->
                 AppException.AuthInvalidCredentialsException(exception.message.toString())
-            }
             is FirebaseAuthInvalidUserException ->
                 AppException.AuthUserDisabledException(exception.message.toString())
+            is FirebaseAuthUserCollisionException ->
+                AppException.EmailAlreadyInUseException(exception.message.toString())
             else -> AppException.AuthUnknownException("An unknown authentication error occurred.")
         }
 

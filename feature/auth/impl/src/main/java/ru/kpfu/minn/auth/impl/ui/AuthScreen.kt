@@ -12,7 +12,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.kpfu.minn.auth.impl.di.AuthDependencies
 import ru.kpfu.minn.auth.impl.ui.model.AuthAction
 import ru.kpfu.minn.auth.impl.ui.model.AuthIntent
-import ru.kpfu.minn.core.common.ViewModelFactory
 import ru.kpfu.minn.core.common.di.DependenciesContainer
 
 @Composable
@@ -20,8 +19,12 @@ fun AuthScreen(
     onRegisterClicked: () -> Unit
 ) {
     val dependencies = (LocalContext.current as DependenciesContainer).getDependencies(AuthDependencies::class.java)
-    val factory = ViewModelFactory { AuthViewModel(dependencies, onRegisterClicked) }
-    val viewModel: AuthViewModel = viewModel(factory = factory)
+    val viewModel: AuthViewModel = viewModel {
+        AuthViewModel(
+            dependencies = dependencies,
+            onRegisterClick = onRegisterClicked,
+        )
+    }
     val state by viewModel.stateFlow.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 

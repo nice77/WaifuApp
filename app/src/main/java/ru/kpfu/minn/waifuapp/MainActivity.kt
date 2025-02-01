@@ -1,6 +1,8 @@
 package ru.kpfu.minn.waifuapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
@@ -11,6 +13,8 @@ import ru.kpfu.minn.auth.impl.ui.AuthScreen
 import ru.kpfu.minn.core.common.di.ComponentDependencies
 import ru.kpfu.minn.core.common.di.DependenciesContainer
 import ru.kpfu.minn.core.systemdesign.theme.WaifuAppTheme
+import ru.kpfu.minn.feature.register.api.router.RegisterRoute
+import ru.kpfu.minn.feature.register.impl.ui.RegisterScreen
 import ru.kpfu.minn.waifuapp.di.AppComponent
 import ru.kpfu.minn.waifuapp.di.ComponentDependenciesManager
 import ru.kpfu.minn.waifuapp.di.DaggerAppComponent
@@ -27,7 +31,7 @@ class MainActivity: ComponentActivity(), DependenciesContainer {
         super.onCreate(savedInstanceState)
         appComponent = DaggerAppComponent
             .factory()
-            .create()
+            .create(this)
             .also {
                 it.inject(this@MainActivity)
             }
@@ -41,7 +45,18 @@ class MainActivity: ComponentActivity(), DependenciesContainer {
                 ) {
                     composable<AuthRoute> {
                         AuthScreen(
-                            onRegisterClicked = {  }
+                            onRegisterClicked = {
+                                if (!navController.popBackStack(route = RegisterRoute, inclusive = false)) {
+                                    navController.navigate(RegisterRoute)
+                                }
+                            }
+                        )
+                    }
+                    composable<RegisterRoute> {
+                        RegisterScreen(
+                            onSignInClicked = {
+                                navController.navigate(AuthRoute)
+                            }
                         )
                     }
                 }

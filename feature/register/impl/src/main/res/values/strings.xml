@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="retype_password">Retype password</string>
+    <string name="submit">Submit</string>
+    <string name="sign_in">Sign In</string>
+    <string name="invalid_email">Email is not valid</string>
+    <string name="invalid_password">Password must contain at least 8 characters</string>
+    <string name="unknown_error">Unknown error</string>
+</resources>

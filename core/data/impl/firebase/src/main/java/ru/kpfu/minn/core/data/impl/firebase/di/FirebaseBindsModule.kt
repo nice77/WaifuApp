@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import ru.kpfu.minn.core.common.di.AppScope
 import ru.kpfu.minn.core.data.api.users.UserService
+import ru.kpfu.minn.core.data.api.users.datasource.UserDatasource
+import ru.kpfu.minn.core.data.impl.firebase.UserDatasourceImpl
 import ru.kpfu.minn.core.data.impl.firebase.UserServiceImpl
 
 @Module
@@ -12,4 +14,6 @@ internal interface FirebaseBindsModule {
     @Binds
     fun bindUserServiceToImpl(userServiceImpl: UserServiceImpl): UserService
 
+    @Binds
+    fun bindUserDatasourceToImpl(userDatasourceImpl: UserDatasourceImpl): UserDatasource
 }

@@ -54,6 +54,7 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore.ktx)
     implementation(libs.bundles.compose.tooling)
     implementation(libs.bundles.compose)
     implementation(libs.firebase.analytics)
@@ -67,6 +68,8 @@ dependencies {
     implementation(project(":core:systemdesign"))
     implementation(project(":feature:auth:api"))
     implementation(project(":feature:auth:impl"))
+    implementation(project(":feature:register:api"))
+    implementation(project(":feature:register:impl"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

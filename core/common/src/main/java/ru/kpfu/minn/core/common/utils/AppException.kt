@@ -7,6 +7,8 @@ sealed class AppException(message: String) : Exception(message) {
     class AuthUserDisabledException(message: String) : AppException(message)
     class AuthUnknownException(message: String) : AppException(message)
 
+    class EmailAlreadyInUseException(message: String): AppException(message)
+
     class FirestorePermissionDeniedException(message: String) : AppException(message)
     class FirestoreServiceUnavailableException(message: String) : AppException(message)
     class FirestoreUnknownException(message: String) : AppException(message)

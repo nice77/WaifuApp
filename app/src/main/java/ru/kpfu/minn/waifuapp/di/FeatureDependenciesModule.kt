@@ -7,6 +7,7 @@ import dagger.multibindings.Multibinds
 import ru.kpfu.minn.auth.impl.di.AuthDependencies
 import ru.kpfu.minn.core.common.di.ComponentDependencies
 import ru.kpfu.minn.core.common.di.ComponentDependenciesKey
+import ru.kpfu.minn.feature.register.impl.di.RegisterDependencies
 
 @Module
 interface FeatureDependenciesModule {
@@ -17,5 +18,10 @@ interface FeatureDependenciesModule {
     @Binds
     @IntoMap
     @ComponentDependenciesKey(AuthDependencies::class)
-    fun bindsUploadPostDeps(appComponent: AppComponent): ComponentDependencies
+    fun bindAuthDependencies(appComponent: AppComponent): ComponentDependencies
+
+    @Binds
+    @IntoMap
+    @ComponentDependenciesKey(RegisterDependencies::class)
+    fun bindRegisterDependencies(appComponent: AppComponent): ComponentDependencies
 }
