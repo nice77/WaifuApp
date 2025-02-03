@@ -1,4 +1,4 @@
-package ru.kpfu.minn.core.data.impl.firebase
+package ru.kpfu.minn.core.data.impl.firebase.users
 
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.tasks.await

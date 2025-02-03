@@ -31,7 +31,7 @@ class RegisterUserUseCaseImpl @Inject constructor(
                             uid = user.uid,
                             email = user.email,
                             username = username,
-                            imageUrl = "",
+                            imageUrl = null,
                         )
                     )
                     true

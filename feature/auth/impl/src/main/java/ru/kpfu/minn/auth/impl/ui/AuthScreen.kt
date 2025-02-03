@@ -16,12 +16,14 @@ import ru.kpfu.minn.core.common.di.DependenciesContainer
 
 @Composable
 fun AuthScreen(
-    onRegisterClicked: () -> Unit
+    onAuthSuccess: () -> Unit,
+    onRegisterClicked: () -> Unit,
 ) {
     val dependencies = (LocalContext.current as DependenciesContainer).getDependencies(AuthDependencies::class.java)
     val viewModel: AuthViewModel = viewModel {
         AuthViewModel(
             dependencies = dependencies,
+            onAuthSuccess = onAuthSuccess,
             onRegisterClick = onRegisterClicked,
         )
     }

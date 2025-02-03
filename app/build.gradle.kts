@@ -70,6 +70,8 @@ dependencies {
     implementation(project(":feature:auth:impl"))
     implementation(project(":feature:register:api"))
     implementation(project(":feature:register:impl"))
+    implementation(project(":feature:profile:api"))
+    implementation(project(":feature:profile:impl"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

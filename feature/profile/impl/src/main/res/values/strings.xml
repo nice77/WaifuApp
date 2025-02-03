@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close_the_image">Close the image</string>
+    <string name="dislike">Dislike</string>
+    <string name="set_as_profile_picture">Set as profile picture</string>
+</resources>

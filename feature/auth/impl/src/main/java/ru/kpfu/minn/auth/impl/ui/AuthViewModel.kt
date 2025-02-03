@@ -13,7 +13,8 @@ import javax.inject.Inject
 
 class AuthViewModel(
     dependencies: AuthDependencies,
-    private val onRegisterClick: () -> Unit
+    private val onAuthSuccess: () -> Unit,
+    private val onRegisterClick: () -> Unit,
 ): BaseViewModel<AuthAction, AuthState, AuthIntent>(initialState = AuthState()) {
 
     init {
@@ -45,7 +46,7 @@ class AuthViewModel(
             _stateFlow.value.run {
                 authorizeUserUseCase(email = email, password = password).onSuccess {
                     _stateFlow.value = _stateFlow.value.copy(isLoading = false)
-
+                    onAuthSuccess()
                 }.onFailure {
                     _stateFlow.value = _stateFlow.value.copy(isLoading = false)
                     _actionFlow.emit(AuthAction.ShowMessage(message = it.message ?: "Unknown Exception"))
