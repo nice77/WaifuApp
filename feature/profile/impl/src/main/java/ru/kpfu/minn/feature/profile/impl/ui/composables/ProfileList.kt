@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.SubcomposeAsyncImage
+import ru.kpfu.minn.core.common.ui.ShimmerAnimation
 import ru.kpfu.minn.feature.profile.impl.ui.model.ImageUiModel
 import ru.kpfu.minn.feature.profile.impl.ui.mvi.ProfileState
 

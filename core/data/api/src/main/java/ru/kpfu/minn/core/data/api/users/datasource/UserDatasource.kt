@@ -11,4 +11,6 @@ interface UserDatasource {
 
     suspend fun updateUserAvatar(imageUrl: ImageUrl): Boolean
 
+    suspend fun fetchUsers(page: Long, pageSize: Int, searchQuery: String): List<UserDetails>
+
 }

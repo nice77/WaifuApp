@@ -9,6 +9,7 @@ import ru.kpfu.minn.core.common.di.ComponentDependencies
 import ru.kpfu.minn.core.common.di.ComponentDependenciesKey
 import ru.kpfu.minn.feature.profile.impl.di.ProfileDependencies
 import ru.kpfu.minn.feature.register.impl.di.RegisterDependencies
+import ru.kpfu.minn.feature.search.impl.di.SearchDependencies
 
 @Module
 interface FeatureDependenciesModule {
@@ -30,4 +31,9 @@ interface FeatureDependenciesModule {
     @IntoMap
     @ComponentDependenciesKey(ProfileDependencies::class)
     fun bindProfileDependencies(appComponent: AppComponent): ComponentDependencies
+
+    @Binds
+    @IntoMap
+    @ComponentDependenciesKey(SearchDependencies::class)
+    fun bindSearchDependencies(appComponent: AppComponent): ComponentDependencies
 }

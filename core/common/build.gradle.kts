@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -40,8 +41,12 @@ dependencies {
     implementation(libs.bundles.coroutines)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
-
     implementation(libs.firebase.firestore.ktx)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    implementation(libs.bundles.coil)
+
+    implementation(project(":core:systemdesign"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

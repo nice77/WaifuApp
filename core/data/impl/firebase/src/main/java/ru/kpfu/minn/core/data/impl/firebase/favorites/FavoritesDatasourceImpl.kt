@@ -42,6 +42,16 @@ class FavoritesDatasourceImpl @Inject constructor(
         return true
     }
 
+    override suspend fun isFavorite(imageUrl: ImageUrl): Boolean {
+        return firebaseFirestore.collection("users")
+            .document(firebaseAuth.currentUser!!.uid)
+            .collection("favorites")
+            .document(imageUrl.imageUrl.split("/").last())
+            .get()
+            .await()
+            .toObject(ImageUrl::class.java) != null
+    }
+
     companion object {
             const val PAGE_SIZE = 20L
     }

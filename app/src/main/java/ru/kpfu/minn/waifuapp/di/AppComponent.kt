@@ -6,8 +6,10 @@ import dagger.Component
 import ru.kpfu.minn.auth.impl.di.AuthDependencies
 import ru.kpfu.minn.core.common.di.AppScope
 import ru.kpfu.minn.core.data.impl.firebase.di.FirebaseModule
+import ru.kpfu.minn.core.data.impl.network.di.NetworkModule
 import ru.kpfu.minn.feature.profile.impl.di.ProfileDependencies
 import ru.kpfu.minn.feature.register.impl.di.RegisterDependencies
+import ru.kpfu.minn.feature.search.impl.di.SearchDependencies
 import ru.kpfu.minn.waifuapp.MainActivity
 
 
@@ -15,8 +17,13 @@ import ru.kpfu.minn.waifuapp.MainActivity
 @Component(modules = [
     FeatureDependenciesModule::class,
     FirebaseModule::class,
+    NetworkModule::class,
 ])
-interface AppComponent: AuthDependencies, RegisterDependencies, ProfileDependencies {
+interface AppComponent:
+    AuthDependencies,
+    RegisterDependencies,
+    ProfileDependencies,
+    SearchDependencies {
 
     @Component.Factory
     interface Factory {

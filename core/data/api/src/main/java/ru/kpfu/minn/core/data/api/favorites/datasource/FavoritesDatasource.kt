@@ -11,4 +11,6 @@ interface FavoritesDatasource {
 
     suspend fun deleteFromFavorites(imageUrl: ImageUrl): Boolean
 
+    suspend fun isFavorite(imageUrl: ImageUrl): Boolean
+
 }

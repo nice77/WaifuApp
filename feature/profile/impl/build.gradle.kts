@@ -49,7 +49,6 @@ dependencies {
 
     implementation(libs.bundles.coil)
     implementation(libs.bundles.paging)
-//    implementation(libs.bundles.ktor)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.firebase.bom))

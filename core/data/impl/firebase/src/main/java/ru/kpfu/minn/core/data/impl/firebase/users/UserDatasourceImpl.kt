@@ -1,6 +1,8 @@
 package ru.kpfu.minn.core.data.impl.firebase.users
 
+import com.google.firebase.firestore.Filter
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 import ru.kpfu.minn.core.data.api.favorites.model.ImageUrl
 import ru.kpfu.minn.core.data.api.users.UserService
@@ -37,4 +39,15 @@ internal class UserDatasourceImpl @Inject constructor(
         return true
     }
 
+    override suspend fun fetchUsers(page: Long, pageSize: Int, searchQuery: String): List<UserDetails> {
+        return firebaseFirestore.collection("users")
+            .orderBy("username")
+            .where(Filter.greaterThanOrEqualTo("username", searchQuery))
+            .where(Filter.lessThanOrEqualTo("username", searchQuery + "\uf8ff"))
+            .startAt(page * pageSize)
+            .limit(pageSize.toLong())
+            .get()
+            .await()
+            .toObjects(UserDetails::class.java)
+    }
 }

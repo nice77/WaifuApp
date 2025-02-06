@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.bundles.ktor)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.firebase.bom))
@@ -65,6 +66,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:data:api"))
     implementation(project(":core:data:impl:firebase"))
+    implementation(project(":core:data:impl:network"))
     implementation(project(":core:systemdesign"))
     implementation(project(":feature:auth:api"))
     implementation(project(":feature:auth:impl"))
@@ -72,6 +74,8 @@ dependencies {
     implementation(project(":feature:register:impl"))
     implementation(project(":feature:profile:api"))
     implementation(project(":feature:profile:impl"))
+    implementation(project(":feature:search:api"))
+    implementation(project(":feature:search:impl"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

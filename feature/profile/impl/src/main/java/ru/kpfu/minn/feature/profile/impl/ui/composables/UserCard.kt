@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
+import ru.kpfu.minn.core.common.ui.ShimmerAnimation
 import ru.kpfu.minn.feature.profile.impl.ui.mvi.ProfileState
 
 @Composable

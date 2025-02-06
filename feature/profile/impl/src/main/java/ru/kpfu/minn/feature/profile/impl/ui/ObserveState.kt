@@ -12,7 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import ru.kpfu.minn.feature.profile.impl.ui.composables.FullscreenImageDialog
+import ru.kpfu.minn.core.common.ui.FullscreenImageDialog
+//import ru.kpfu.minn.feature.profile.impl.ui.composables.FullscreenImageDialog
 import ru.kpfu.minn.feature.profile.impl.ui.composables.ProfileList
 import ru.kpfu.minn.feature.profile.impl.ui.model.ImageUiModel
 import ru.kpfu.minn.feature.profile.impl.ui.mvi.ProfileState
@@ -45,7 +46,8 @@ fun ObserveState(
         if (state.isDialogShown) {
             FullscreenImageDialog(
                 modifier = Modifier.align(Alignment.Center),
-                state = state,
+                imageUrl = state.clickedImage.imageUrl,
+                isLiked = state.clickedImage.isLiked,
                 onDismissDialogClicked = onDismissDialogClicked,
                 onLikeClicked = onLikeClicked,
                 onSetAsWallpaperClicked = onSetAsWallpaperClicked,
