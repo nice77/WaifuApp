@@ -5,12 +5,14 @@ import dagger.Module
 import ru.kpfu.minn.feature.search.api.repository.UserRepository
 import ru.kpfu.minn.feature.search.api.repository.WaifuImagesRepository
 import ru.kpfu.minn.feature.search.api.usecase.FetchTagsUseCase
+import ru.kpfu.minn.feature.search.api.usecase.GetIsCurrentUserUseCase
 import ru.kpfu.minn.feature.search.api.usecase.GetIsImageFavoriteUseCase
 import ru.kpfu.minn.feature.search.api.usecase.ManageImageFavoritnessUseCase
 import ru.kpfu.minn.feature.search.api.usecase.SetAsWallpaperUseCase
 import ru.kpfu.minn.feature.search.impl.repository.UserRepositoryImpl
 import ru.kpfu.minn.feature.search.impl.repository.WaifuImagesRepositoryImpl
 import ru.kpfu.minn.feature.search.impl.usecase.FetchTagsUseCaseImpl
+import ru.kpfu.minn.feature.search.impl.usecase.GetIsCurrentUserUseCaseImpl
 import ru.kpfu.minn.feature.search.impl.usecase.GetIsImageFavoriteUseCaseImpl
 import ru.kpfu.minn.feature.search.impl.usecase.ManageImageFavoritnessUseCaseImpl
 import ru.kpfu.minn.feature.search.impl.usecase.SetAsWallpaperUseCaseImpl
@@ -35,5 +37,8 @@ internal interface SearchBinderModule {
 
     @Binds
     fun bindSetAsWallpaperUseCaseToImpl(setAsWallpaperUseCaseImpl: SetAsWallpaperUseCaseImpl): SetAsWallpaperUseCase
+
+    @Binds
+    fun bindGetIsCurrentUserUseCaseToImpl(getIsCurrentUserUseCaseImpl: GetIsCurrentUserUseCaseImpl): GetIsCurrentUserUseCase
 
 }

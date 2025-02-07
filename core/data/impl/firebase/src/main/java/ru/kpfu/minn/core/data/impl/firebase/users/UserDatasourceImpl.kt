@@ -50,4 +50,16 @@ internal class UserDatasourceImpl @Inject constructor(
             .await()
             .toObjects(UserDetails::class.java)
     }
+
+    override fun updateUserToken(token: String) {
+        userService.getCurrentUserID()?.let { userId ->
+            firebaseFirestore.collection("users")
+                .document(userId)
+                .update(mapOf("fcmToken" to token))
+        }
+    }
+
+    override fun getIsCurrentUser(userId: String): Boolean {
+        return userService.getCurrentUserID()!! == userId
+    }
 }

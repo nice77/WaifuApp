@@ -5,4 +5,5 @@ data class UserDetails (
     val email: String = "",
     val username: String = "",
     val imageUrl: String? = null,
+    val fcmToken: String = ""
 )

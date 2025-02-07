@@ -9,4 +9,6 @@ interface UserRepository {
 
     suspend fun setAsWallpaper(imageDomainModel: ImageDomainModel)
 
+    suspend fun getIsCurrentUser(userDomainModel: UserDomainModel): Boolean
+
 }

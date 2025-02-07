@@ -16,11 +16,16 @@ import ru.kpfu.minn.feature.register.impl.ui.model.RegisterIntent
 
 @Composable
 fun RegisterScreen(
-    onSignInClicked: () -> Unit
+    onSignInClicked: () -> Unit,
+    onRegisterSuccess: () -> Unit,
 ) {
     val dependencies = (LocalContext.current as DependenciesContainer).getDependencies(RegisterDependencies::class.java)
     val viewModel = viewModel {
-        RegisterViewModel(dependencies, onSignInClicked)
+        RegisterViewModel(
+            dependencies,
+            onSignInClicked,
+            onRegisterSuccess,
+        )
     }
     val state by viewModel.stateFlow.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }

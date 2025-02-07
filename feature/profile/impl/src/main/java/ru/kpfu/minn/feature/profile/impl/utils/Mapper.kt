@@ -13,6 +13,6 @@ fun ImageUrlDomainModel.toDataModel(): ImageUrl = ImageUrl(this.imageUrl)
 
 fun UserDetails.toDomainModel(): UserDomainModel = UserDomainModel(this.username, this.imageUrl)
 
-fun ImageUrlDomainModel.toUiModel(): ImageUiModel = ImageUiModel(this.imageUrl, mutableStateOf(true))
+fun ImageUrlDomainModel.toUiModel(isLiked: Boolean): ImageUiModel = ImageUiModel(this.imageUrl, mutableStateOf(isLiked))
 
 fun ImageUiModel.toDomainModel(): ImageUrlDomainModel = ImageUrlDomainModel(this.imageUrl)

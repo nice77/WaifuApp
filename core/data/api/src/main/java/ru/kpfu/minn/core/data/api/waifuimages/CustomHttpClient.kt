@@ -14,4 +14,13 @@ interface CustomHttpClient {
         httpRequestBuilder: HttpRequestBuilder.() -> Unit = {},
     ): HttpResponse
 
+    suspend fun post(
+        urlString: String,
+        httpRequestBuilder: HttpRequestBuilder.() -> Unit = {},
+    ): HttpResponse
+
+    suspend fun post(
+        httpRequestBuilder: HttpRequestBuilder.() -> Unit = {},
+    ): HttpResponse
+
 }

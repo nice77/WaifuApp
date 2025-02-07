@@ -24,4 +24,8 @@ internal class UserRepositoryImpl @Inject constructor(
         userDatasource.updateUserAvatar(imageDomainModel.toDataModel())
     }
 
+    override suspend fun getIsCurrentUser(userDomainModel: UserDomainModel): Boolean {
+        return userDatasource.getIsCurrentUser(userDomainModel.uid)
+    }
+
 }

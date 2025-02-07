@@ -13,4 +13,7 @@ interface UserDatasource {
 
     suspend fun fetchUsers(page: Long, pageSize: Int, searchQuery: String): List<UserDetails>
 
+    fun updateUserToken(token: String)
+
+    fun getIsCurrentUser(userId: String): Boolean
 }

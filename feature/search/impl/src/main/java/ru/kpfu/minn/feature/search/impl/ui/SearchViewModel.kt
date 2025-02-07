@@ -13,6 +13,7 @@ import ru.kpfu.minn.feature.search.api.model.ImageDomainModel
 import ru.kpfu.minn.feature.search.api.model.TagDomainModel
 import ru.kpfu.minn.feature.search.api.model.UserDomainModel
 import ru.kpfu.minn.feature.search.api.usecase.FetchTagsUseCase
+import ru.kpfu.minn.feature.search.api.usecase.GetIsCurrentUserUseCase
 import ru.kpfu.minn.feature.search.api.usecase.GetIsImageFavoriteUseCase
 import ru.kpfu.minn.feature.search.api.usecase.ManageImageFavoritnessUseCase
 import ru.kpfu.minn.feature.search.api.usecase.SetAsWallpaperUseCase
@@ -51,13 +52,16 @@ class SearchViewModel(
     @Inject
     lateinit var setAsWallpaperUseCase: SetAsWallpaperUseCase
 
+    @Inject
+    lateinit var getIsCurrentUserUseCase: GetIsCurrentUserUseCase
+
     private var searchPagingSource: SearchPagingSource? = null
     private var userPagingSource: UserPagingSource? = null
 
     val searchResultFlow = createSearchPager()
         .flow
         .map { pagingData ->
-            pagingData.map { item ->
+            val result = pagingData.map { item ->
                 when (item) {
                     is ImageDomainModel -> {
                         var result: SearchUiModel.ImageUiModel = SearchUiModel.ImageUiModel("", "")
@@ -68,10 +72,13 @@ class SearchViewModel(
                         }
                         result
                     }
-                    is UserDomainModel -> item.toUiModel()
+                    is UserDomainModel -> item.toUiModel(
+                        isCurrentUser = getIsCurrentUserUseCase(item).getOrDefault(false)
+                    )
                     else -> throw NoSuchElementException()
                 }
             }
+            result
         }
         .cachedIn(viewModelScope)
 
@@ -103,6 +110,7 @@ class SearchViewModel(
                 )
             }
             is SearchIntent.OnSwitchClicked -> {
+                _stateFlow.value.isLoading.value = true
                 _stateFlow.value = _stateFlow.value.copy(
                     isImageSearch = intent.isChecked,
                 )
@@ -117,6 +125,13 @@ class SearchViewModel(
             }
             SearchIntent.OnLikeClicked -> onLikeClicked()
             SearchIntent.OnSetAsWallpaperClicked -> onSetAsWallpaperClicked()
+            is SearchIntent.WriteToUser -> onWriteToUserClicked(intent.userId)
+        }
+    }
+
+    private fun onWriteToUserClicked(userId: String) {
+        viewModelScope.launch {
+            _actionFlow.emit(SearchAction.PerformNavigationToChat(userId))
         }
     }
 
@@ -130,14 +145,14 @@ class SearchViewModel(
             }
             is SearchUiModel.UserUiModel -> {
                 viewModelScope.launch {
-                    _actionFlow.emit(SearchAction.PerformNavigation(intent.searchUiModel.uid))
+                    _actionFlow.emit(SearchAction.PerformNavigationToProfile(intent.searchUiModel.uid))
                 }
             }
         }
     }
 
     private fun createSearchPager(): Pager<Long, out Any> {
-        return Pager(
+        val pager = Pager(
             PagingConfig(
                 pageSize = 10,
                 prefetchDistance = 1,
@@ -148,13 +163,16 @@ class SearchViewModel(
                     it.selected
                 }.map(TagUiModel::toDomainModel)
                 searchPagingSource = component.searchPagingSourceFactory().create(tags)
+                _stateFlow.value.isLoading.value = false
                 searchPagingSource!!
             } else {
                 userPagingSource =
                     component.userPagingSourceFactory().create(_stateFlow.value.searchQuery)
+                _stateFlow.value.isLoading.value = false
                 userPagingSource!!
             }
         }
+        return pager
     }
 
     private fun onSetAsWallpaperClicked() {
@@ -171,6 +189,8 @@ class SearchViewModel(
                 imageDomainModel = _stateFlow.value.clickedImage.toDomainModel(),
                 toRemove = _stateFlow.value.clickedImage.isLiked.value
             )
+            _stateFlow.value.clickedImage.isLiked.value =
+                !_stateFlow.value.clickedImage.isLiked.value
         }
     }
 

@@ -7,6 +7,7 @@ import dagger.multibindings.Multibinds
 import ru.kpfu.minn.auth.impl.di.AuthDependencies
 import ru.kpfu.minn.core.common.di.ComponentDependencies
 import ru.kpfu.minn.core.common.di.ComponentDependenciesKey
+import ru.kpfu.minn.feature.messaging.impl.di.MessagingDependencies
 import ru.kpfu.minn.feature.profile.impl.di.ProfileDependencies
 import ru.kpfu.minn.feature.register.impl.di.RegisterDependencies
 import ru.kpfu.minn.feature.search.impl.di.SearchDependencies
@@ -36,4 +37,9 @@ interface FeatureDependenciesModule {
     @IntoMap
     @ComponentDependenciesKey(SearchDependencies::class)
     fun bindSearchDependencies(appComponent: AppComponent): ComponentDependencies
+
+    @Binds
+    @IntoMap
+    @ComponentDependenciesKey(MessagingDependencies::class)
+    fun bindMessagingDependencies(appComponent: AppComponent): ComponentDependencies
 }

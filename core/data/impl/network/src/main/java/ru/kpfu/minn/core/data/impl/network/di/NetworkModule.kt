@@ -28,4 +28,8 @@ class NetworkModule {
     @DefaultUrl
     fun provideBaseUrl(): String = "https://api.waifu.im/"
 
+    @Provides
+    @FCMUrl
+    fun provideFCMUrl(): String = "http://10.0.2.2:80"
+
 }

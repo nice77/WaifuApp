@@ -7,6 +7,7 @@ import ru.kpfu.minn.core.common.BaseViewModel
 import ru.kpfu.minn.core.common.utils.ExceptionHandlerDelegate
 import ru.kpfu.minn.core.common.utils.StringResProvider
 import ru.kpfu.minn.feature.register.api.usecase.RegisterUserUseCase
+import ru.kpfu.minn.feature.register.api.usecase.RetrieveFCMTokenUseCase
 import ru.kpfu.minn.feature.register.impl.R
 import ru.kpfu.minn.feature.register.impl.di.DaggerRegisterComponent
 import ru.kpfu.minn.feature.register.impl.di.RegisterDependencies
@@ -18,6 +19,7 @@ import javax.inject.Inject
 internal class RegisterViewModel(
     dependencies: RegisterDependencies,
     private val onSignInClicked: () -> Unit,
+    private val onRegisterSuccess: () -> Unit,
 ): BaseViewModel<RegisterAction, RegisterState, RegisterIntent>(
     initialState = RegisterState(),
 ) {
@@ -33,10 +35,10 @@ internal class RegisterViewModel(
     lateinit var registerUserUseCase: RegisterUserUseCase
 
     @Inject
-    lateinit var exceptionHandlerDelegate: ExceptionHandlerDelegate
+    lateinit var stringResProvider: StringResProvider
 
     @Inject
-    lateinit var stringResProvider: StringResProvider
+    lateinit var retrieveFCMTokenUseCase: RetrieveFCMTokenUseCase
 
     override fun handleIntent(intent: RegisterIntent) {
         when (intent) {
@@ -69,22 +71,29 @@ internal class RegisterViewModel(
         viewModelScope.launch {
             _stateFlow.value = _stateFlow.value.copy(isLoading = true)
             _stateFlow.value.run {
-                registerUserUseCase(email, password, username).onSuccess {
-                    _stateFlow.value = _stateFlow.value.copy(
-                        isLoading = false,
-                    )
-                }.onFailure { e ->
-                    _stateFlow.value = _stateFlow.value.copy(
-                        isLoading = false,
-                    )
-                    _actionFlow.emit(
-                        RegisterAction.ShowMessage(
-                            e.message ?: stringResProvider.getString(R.string.unknown_error)
+                retrieveFCMTokenUseCase().onSuccess { token ->
+                    registerUserUseCase(email, password, username, token).onSuccess {
+                        _stateFlow.value = _stateFlow.value.copy(
+                            isLoading = false,
                         )
-                    )
+                        onRegisterSuccess()
+                    }.onFailure { emitErrorMessage(it) }
+                }.onFailure {
+                    emitErrorMessage(it)
                 }
             }
         }
+    }
+
+    private suspend fun emitErrorMessage(e: Throwable) {
+        _stateFlow.value = _stateFlow.value.copy(
+            isLoading = false,
+        )
+        _actionFlow.emit(
+            RegisterAction.ShowMessage(
+                e.message ?: stringResProvider.getString(R.string.unknown_error)
+            )
+        )
     }
 
     private fun isEmailValid() {

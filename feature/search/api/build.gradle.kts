@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.targets.js.d8.D8RootPlugin.Companion.kotlinD8Extension
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -44,7 +42,6 @@ dependencies {
 
     implementation(project(":core:data:api"))
     implementation(project(":core:common"))
-
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

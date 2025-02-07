@@ -44,6 +44,7 @@ android {
 
 dependencies {
 
+    implementation(libs.firebase.messaging.ktx)
     ksp(libs.dagger.compiler)
     implementation(libs.dagger)
 
@@ -76,6 +77,8 @@ dependencies {
     implementation(project(":feature:profile:impl"))
     implementation(project(":feature:search:api"))
     implementation(project(":feature:search:impl"))
+    implementation(project(":feature:messaging:api"))
+    implementation(project(":feature:messaging:impl"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

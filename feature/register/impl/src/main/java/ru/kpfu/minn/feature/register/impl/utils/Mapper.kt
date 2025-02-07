@@ -9,6 +9,7 @@ fun UserDomainModel.toUserDetails(): UserDetails {
         this.email,
         this.username,
         this.imageUrl,
+        this.fcmToken
     )
 }
 
@@ -18,5 +19,6 @@ fun UserDetails.toUserDomainModel(): UserDomainModel {
         this.email,
         this.username,
         this.imageUrl,
+        this.fcmToken
     )
 }

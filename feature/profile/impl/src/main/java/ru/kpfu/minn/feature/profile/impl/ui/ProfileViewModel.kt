@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import ru.kpfu.minn.core.common.BaseViewModel
 import ru.kpfu.minn.feature.profile.api.model.ImageUrlDomainModel
 import ru.kpfu.minn.feature.profile.api.usecase.AddToFavoritesUseCase
+import ru.kpfu.minn.feature.profile.api.usecase.GetIsImageFavoriteUseCase
 import ru.kpfu.minn.feature.profile.api.usecase.GetUserInfoUseCase
 import ru.kpfu.minn.feature.profile.api.usecase.RemoveFromFavoritesUseCase
 import ru.kpfu.minn.feature.profile.api.usecase.SetAsWallpaperUseCase
@@ -19,6 +20,7 @@ import ru.kpfu.minn.feature.profile.impl.repository.paging.FavoritesPagingSource
 import ru.kpfu.minn.feature.profile.impl.ui.mvi.ProfileAction
 import ru.kpfu.minn.feature.profile.impl.ui.mvi.ProfileIntent
 import ru.kpfu.minn.feature.profile.impl.ui.mvi.ProfileState
+import ru.kpfu.minn.feature.profile.impl.usecase.GetIsImageFavoriteUseCaseImpl
 import ru.kpfu.minn.feature.profile.impl.utils.toDomainModel
 import ru.kpfu.minn.feature.profile.impl.utils.toUiModel
 import javax.inject.Inject
@@ -50,6 +52,9 @@ internal class ProfileViewModel(
     @Inject
     lateinit var setAsWallpaperUseCase: SetAsWallpaperUseCase
 
+    @Inject
+    lateinit var getIsImageFavoriteUseCase: GetIsImageFavoriteUseCase
+
     private var pagingSource: FavoritesPagingSource? = null
 
     val imagesFlow = Pager(
@@ -59,7 +64,11 @@ internal class ProfileViewModel(
         pagingSource!!
     }.flow
         .map { pagingData ->
-            pagingData.map(ImageUrlDomainModel::toUiModel)
+            pagingData.map { imageUrlDomainModel ->
+                imageUrlDomainModel.toUiModel(
+                    isLiked = getIsImageFavoriteUseCase(imageUrlDomainModel).getOrDefault(true)
+                )
+            }
         }
         .cachedIn(viewModelScope)
 

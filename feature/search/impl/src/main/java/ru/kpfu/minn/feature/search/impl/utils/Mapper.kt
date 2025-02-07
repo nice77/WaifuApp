@@ -50,10 +50,11 @@ fun UserDetails.toDomainModel(): UserDomainModel = UserDomainModel(
     imageUrl = this.imageUrl,
 )
 
-fun UserDomainModel.toUiModel(): SearchUiModel.UserUiModel = SearchUiModel.UserUiModel(
+fun UserDomainModel.toUiModel(isCurrentUser: Boolean): SearchUiModel.UserUiModel = SearchUiModel.UserUiModel(
     uid = this.uid,
     username = this.username,
     imageUrl = this.imageUrl,
+    isCurrentUser = isCurrentUser,
 )
 
 fun SearchUiModel.ImageUiModel.toDomainModel(): ImageDomainModel = ImageDomainModel(

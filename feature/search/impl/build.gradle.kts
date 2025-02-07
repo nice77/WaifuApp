@@ -39,7 +39,6 @@ android {
 
 dependencies {
     implementation(project(":feature:profile:impl"))
-    implementation(project(":feature:profile:impl"))
     ksp(libs.dagger.compiler)
     implementation(libs.dagger)
 

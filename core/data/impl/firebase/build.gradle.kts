@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.gms)
 }
 
 android {
@@ -38,6 +37,8 @@ dependencies {
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.cloud.messaging)
+    implementation(libs.bundles.ktor)
     implementation(libs.firebase.firestore.ktx)
 
     implementation(libs.androidx.core.ktx)
@@ -49,6 +50,7 @@ dependencies {
 
     implementation(project(":core:data:api"))
     implementation(project(":core:common"))
+    implementation(project(":core:data:impl:network"))
     ksp(libs.dagger.compiler)
     implementation(libs.dagger)
 }

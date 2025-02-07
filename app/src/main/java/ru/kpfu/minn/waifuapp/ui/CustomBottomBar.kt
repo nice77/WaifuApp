@@ -1,6 +1,5 @@
 package ru.kpfu.minn.waifuapp.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +16,7 @@ import ru.kpfu.minn.waifuapp.R
 @Composable
 fun CustomBottomBar(
     stringResProvider: StringResProvider,
-    onDashboardClicked: () -> Unit,
+    onMessagesClicked: () -> Unit,
     onSearchClicked: () -> Unit,
     onProfileClicked: () -> Unit,
 ) {
@@ -30,7 +29,7 @@ fun CustomBottomBar(
         CustomIconButton(
             icon = Icons.Filled.Dashboard,
             text = stringResProvider.getString(R.string.dashboard),
-            onClick = onDashboardClicked,
+            onClick = onMessagesClicked,
         )
         CustomIconButton(
             icon = Icons.Filled.Search,

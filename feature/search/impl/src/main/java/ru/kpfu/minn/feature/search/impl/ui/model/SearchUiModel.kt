@@ -15,5 +15,6 @@ sealed interface SearchUiModel {
         val uid: String,
         val username: String,
         val imageUrl: String?,
+        val isCurrentUser: Boolean,
     ): SearchUiModel
 }

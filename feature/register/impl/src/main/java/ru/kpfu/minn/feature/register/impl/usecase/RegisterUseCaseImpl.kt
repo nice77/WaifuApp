@@ -21,7 +21,8 @@ class RegisterUserUseCaseImpl @Inject constructor(
     override suspend fun invoke(
         email: String,
         password: String,
-        username: String
+        username: String,
+        fcmToken: String,
     ): Result<Boolean> {
         return withContext(dispatcher) {
             runSuspendCatching(exceptionHandlerDelegate) {
@@ -32,6 +33,7 @@ class RegisterUserUseCaseImpl @Inject constructor(
                             email = user.email,
                             username = username,
                             imageUrl = null,
+                            fcmToken = fcmToken,
                         )
                     )
                     true

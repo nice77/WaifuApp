@@ -29,6 +29,7 @@ firebaseCrashlyticsPlugin = "3.0.2"
 
 kotlinxCoroutines = "1.9.0"
 kotlinxSerializationJson = "1.7.3"
+kotlinxDatetime = "0.6.1"
 ksp = "2.0.21-1.0.28"
 
 okhttp = "4.12.0"
@@ -40,6 +41,7 @@ material = "1.12.0"
 uiToolingPreviewAndroid = "1.7.5"
 
 gms = "4.4.2"
+firebaseMessagingKtxVersion = "24.1.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -98,6 +100,7 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutines" }
 
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
@@ -110,6 +113,7 @@ paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "pa
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
+firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtxVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

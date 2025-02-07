@@ -15,4 +15,5 @@ sealed interface SearchIntent {
     data class OnTagClicked(val tagUiModel: TagUiModel): SearchIntent
     data class OnSwitchClicked(val isChecked: Boolean): SearchIntent
     data class OnSearchItemClicked(val searchUiModel: SearchUiModel): SearchIntent
+    data class WriteToUser(val userId: String): SearchIntent
 }

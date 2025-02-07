@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -14,6 +15,7 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -26,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import ru.kpfu.minn.core.common.ui.FullscreenImageDialog
@@ -54,6 +57,7 @@ fun ObserveState(
     onDismissDialogClicked: () -> Unit,
     onLikeClicked: () -> Unit,
     onSetAsWallpaperClicked: () -> Unit,
+    onWriteToUserClicked: (String) -> Unit,
 ) {
     Box (
         modifier = modifier
@@ -111,45 +115,64 @@ fun ObserveState(
                     )
                 }
             }
-            items(searchResults.itemCount) { item ->
-                searchResults[item]?.let { searchUiModel ->
-                    val model = when (searchUiModel) {
-                        is SearchUiModel.ImageUiModel -> searchUiModel.previewUrl
-                        is SearchUiModel.UserUiModel -> searchUiModel.imageUrl
-                    }
-                    Column(
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                            .clickable { onSearchItemClicked(searchUiModel) },
-                        verticalArrangement = Arrangement.Center,
-                    ) {
-                        SubcomposeAsyncImage(
-                            model = model,
-                            contentDescription = null,
-//                            modifier = Modifier
-//                                .padding(8.dp)
-//                                .clip(RoundedCornerShape(8.dp))
-//                                .clickable { onSearchItemClicked(searchUiModel) },
-                            loading = {
-                                ShimmerAnimation(
-                                    modifier = Modifier
-                                        .heightIn(max = 512.dp)
-                                        .fillMaxWidth()
-                                )
-                            }
-                        )
-                        if (!state.isImageSearch) {
-                            Text(
-                                text = (searchUiModel as SearchUiModel.UserUiModel).username,
+            if (!state.isLoading.value) {
+                items(searchResults.itemCount) { item ->
+                    searchResults[item]?.let { searchUiModel ->
+                        val model = when (searchUiModel) {
+                            is SearchUiModel.ImageUiModel -> searchUiModel.imageUrl
+                            is SearchUiModel.UserUiModel -> searchUiModel.imageUrl
+                        }
+                        Column(
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .clickable { onSearchItemClicked(searchUiModel) },
+                            verticalArrangement = Arrangement.Center,
+                        ) {
+                            SubcomposeAsyncImage(
+                                model = model,
+                                contentDescription = null,
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(4.dp),
-                                textAlign = TextAlign.Center,
+                                    .padding(8.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .clickable { onSearchItemClicked(searchUiModel) },
+                                loading = {
+                                    ShimmerAnimation(
+                                        modifier = Modifier
+                                            .heightIn(min = 512.dp)
+                                            .fillMaxWidth()
+                                    )
+                                }
                             )
+                            if (!state.isImageSearch && searchUiModel is SearchUiModel.UserUiModel) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceAround,
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    Text(
+                                        text = searchUiModel.username,
+                                        modifier = Modifier
+                                            .padding(4.dp),
+                                        textAlign = TextAlign.Center,
+                                    )
+                                    if (!searchUiModel.isCurrentUser) {
+                                        IconButton(
+                                            modifier = Modifier,
+                                            onClick = { onWriteToUserClicked(searchUiModel.uid) },
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.AutoMirrored.Filled.Message,
+                                                contentDescription = null,
+                                                modifier = Modifier.align(Alignment.CenterVertically),
+                                            )
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
-
                 }
             }
         }

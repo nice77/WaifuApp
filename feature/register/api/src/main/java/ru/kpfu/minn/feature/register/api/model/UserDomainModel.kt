@@ -5,4 +5,5 @@ data class UserDomainModel(
     val email: String,
     val username: String,
     val imageUrl: String?,
+    val fcmToken: String,
 )

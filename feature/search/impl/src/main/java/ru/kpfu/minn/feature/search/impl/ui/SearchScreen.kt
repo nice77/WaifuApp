@@ -22,6 +22,7 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     stringResProvider: StringResProvider,
     onUserClicked: (String) -> Unit,
+    onChatWithUserClicked: (String) -> Unit,
 ) {
     val dependencies = (LocalContext.current as DependenciesContainer)
         .getDependencies(SearchDependencies::class.java)
@@ -32,12 +33,16 @@ fun SearchScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     LaunchedEffect(Unit) {
         viewModel.actionFlow.collect { action ->
-            when(action) {
+            when (action) {
                 is SearchAction.ShowMessage -> {
                     snackbarHostState.showSnackbar(message = action.message)
                 }
-                is SearchAction.PerformNavigation -> {
+                is SearchAction.PerformNavigationToProfile -> {
                     onUserClicked(action.uid)
+                }
+
+                is SearchAction.PerformNavigationToChat -> {
+                    onChatWithUserClicked(action.uid)
                 }
             }
         }
@@ -59,6 +64,7 @@ fun SearchScreen(
         onDismissDialogClicked = { viewModel.handleIntent(SearchIntent.OnDismissDialogClicked) },
         onLikeClicked = { viewModel.handleIntent(SearchIntent.OnLikeClicked) },
         onSetAsWallpaperClicked = { viewModel.handleIntent(SearchIntent.OnSetAsWallpaperClicked) },
+        onWriteToUserClicked = { viewModel.handleIntent(SearchIntent.WriteToUser(it)) }
     )
     SnackbarHost(hostState = snackbarHostState)
 }

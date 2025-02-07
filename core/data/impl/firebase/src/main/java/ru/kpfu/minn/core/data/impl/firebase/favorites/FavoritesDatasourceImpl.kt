@@ -18,7 +18,7 @@ class FavoritesDatasourceImpl @Inject constructor(
         userId: String?
     ): Query = firebaseFirestore
             .collection("users")
-            .document(firebaseAuth.currentUser?.uid ?: throw AppException.AuthUnknownException("Unathorized user"))
+            .document(userId ?: firebaseAuth.currentUser?.uid ?: throw AppException.AuthUnknownException("Unathorized user"))
             .collection("favorites")
             .limit(PAGE_SIZE)
 

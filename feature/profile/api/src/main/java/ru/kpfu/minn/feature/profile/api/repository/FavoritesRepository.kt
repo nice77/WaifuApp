@@ -11,4 +11,6 @@ interface FavoritesRepository {
 
     suspend fun deleteFromFavorites(imageUrlDomainModel: ImageUrlDomainModel): Boolean
 
+    suspend fun getIsImageFavorite(imageUrlDomainModel: ImageUrlDomainModel): Boolean
+
 }

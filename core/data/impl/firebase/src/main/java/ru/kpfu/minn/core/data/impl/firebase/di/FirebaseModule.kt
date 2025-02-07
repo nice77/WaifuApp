@@ -3,6 +3,7 @@ package ru.kpfu.minn.core.data.impl.firebase.di
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import com.google.firebase.messaging.messaging
 import dagger.Module
 import dagger.Provides
 
@@ -15,5 +16,8 @@ class FirebaseModule {
 
     @Provides
     fun provideFirebaseFirestore() = Firebase.firestore
+
+    @Provides
+    fun provideFirebaseMessaging() = Firebase.messaging
 
 }
