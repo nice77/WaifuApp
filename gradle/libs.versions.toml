@@ -38,6 +38,7 @@ ktor = "3.0.3"
 paging = "3.3.5"
 
 material = "1.12.0"
+mockk = "1.13.16"
 uiToolingPreviewAndroid = "1.7.5"
 
 gms = "4.4.2"
@@ -108,6 +109,7 @@ ktor-content-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+mockk = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
 
 paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }

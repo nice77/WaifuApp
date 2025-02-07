@@ -15,7 +15,6 @@ internal class GetChatIdByOtherUserUseCaseImpl @Inject constructor(
 ): GetChatIdByOtherUserUseCase {
     override suspend fun invoke(otherUserId: String): Result<String?> = withContext(dispatcher) {
         runSuspendCatching(exceptionHandlerDelegate) {
-            println("in usecase")
             chatsRepository.getChatByOtherUserId(otherUserId)
         }
     }
