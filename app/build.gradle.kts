@@ -55,10 +55,6 @@ detekt {
     // Builds the AST in parallel. Rules are always executed in parallel.
     // Can lead to speedups in larger projects. `false` by default.
     parallel = true
-
-    // Define the detekt configuration(s) you want to use.
-    // Defaults to the default detekt configuration.
-    config.setFrom("detekt/config.yml")
 }
 
 dependencies {
