@@ -23,4 +23,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Build SampleApplication
-        run: ./gradlew test
+        run: |
+          ls
+          pwd
+          ./gradlew test
