@@ -7,16 +7,28 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  run_detekt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup detekt
+        uses: peter-murray/setup-detekt@v2
+        with:
+          detekt_version: 1.20
+
+      - name: Run detekt
+        run: detekt-cli --version
+
+  run_all_tests:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK 8
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '8'
           distribution: 'temurin'
 
       - name: Setup Android SDK
@@ -24,6 +36,5 @@ jobs:
 
       - name: Build SampleApplication
         run: |
-          ls
-          pwd
+          chmod +x ./gradlew
           ./gradlew test
