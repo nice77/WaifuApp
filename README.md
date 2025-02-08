@@ -7,4 +7,4 @@
 `python3 server.py`
 
 
-##### Все тесты для каждой фичи лежат в соответствующих `:feature:{featureName}:impl`
+##### Все тесты для каждой фичи, кроме auth, лежат в соответствующих `:feature:{featureName}:impl`

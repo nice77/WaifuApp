@@ -32,7 +32,7 @@ class RegisterUserUseCaseImpl @Inject constructor(
                             uid = user.uid,
                             email = user.email,
                             username = username,
-                            imageUrl = null,
+                            imageUrl = "https://cdn.waifu.im/6965.jpg",
                             fcmToken = fcmToken,
                         )
                     )
