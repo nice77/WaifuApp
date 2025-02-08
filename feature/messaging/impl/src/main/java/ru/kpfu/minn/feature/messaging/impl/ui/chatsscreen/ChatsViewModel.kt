@@ -55,9 +55,13 @@ class ChatsViewModel(
                         chatId = chat.chatId
                     )
                 }
-                _stateFlow.value = _stateFlow.value.copy(
-                    chats = uiChats,
-                )
+                if (chats.isEmpty()) {
+                    _actionFlow.emit(ChatsAction.ShowSnackbar("No chats"))
+                } else {
+                    _stateFlow.value = _stateFlow.value.copy(
+                        chats = uiChats,
+                    )
+                }
             }
         }
     }
