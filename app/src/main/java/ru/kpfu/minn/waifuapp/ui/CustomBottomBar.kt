@@ -16,9 +16,9 @@ import ru.kpfu.minn.waifuapp.R
 @Composable
 fun CustomBottomBar(
     stringResProvider: StringResProvider,
-    onMessagesClicked: () -> Unit,
-    onSearchClicked: () -> Unit,
-    onProfileClicked: () -> Unit,
+    onMessagesClick: () -> Unit,
+    onSearchClick: () -> Unit,
+    onProfileClick: () -> Unit,
 ) {
     Row (
         modifier = Modifier
@@ -29,17 +29,17 @@ fun CustomBottomBar(
         CustomIconButton(
             icon = Icons.Filled.Dashboard,
             text = stringResProvider.getString(R.string.dashboard),
-            onClick = onMessagesClicked,
+            onClick = onMessagesClick,
         )
         CustomIconButton(
             icon = Icons.Filled.Search,
             text = stringResProvider.getString(R.string.search),
-            onClick = onSearchClicked,
+            onClick = onSearchClick,
         )
         CustomIconButton(
             icon = Icons.Filled.Person,
             text = stringResProvider.getString(R.string.profile),
-            onClick = onProfileClicked,
+            onClick = onProfileClick,
         )
     }
 }

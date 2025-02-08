@@ -55,9 +55,12 @@ detekt {
     // Builds the AST in parallel. Rules are always executed in parallel.
     // Can lead to speedups in larger projects. `false` by default.
     parallel = true
+
+    config.setFrom("detekt/config.yml")
 }
 
 dependencies {
+    detektPlugins("ru.kode:detekt-rules-compose:1.4.0")
 
     implementation(libs.firebase.messaging.ktx)
     ksp(libs.dagger.compiler)

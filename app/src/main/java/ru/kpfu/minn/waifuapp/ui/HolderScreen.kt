@@ -15,7 +15,6 @@ import ru.kpfu.minn.core.common.utils.StringResProvider
 import ru.kpfu.minn.feature.messaging.api.route.ChatRoute
 import ru.kpfu.minn.feature.messaging.api.route.MessagingRoute
 import ru.kpfu.minn.feature.messaging.impl.ui.chatsscreen.ChatsScreen
-import ru.kpfu.minn.feature.messaging.impl.ui.currentchat.CurrentChatScreen
 import ru.kpfu.minn.feature.profile.api.router.ProfileRoute
 import ru.kpfu.minn.feature.profile.impl.ui.ProfileScreen
 import ru.kpfu.minn.feature.search.api.router.SearchRoute
@@ -35,9 +34,9 @@ fun HolderScreen(
         bottomBar = {
             CustomBottomBar(
                 stringResProvider = stringResProvider,
-                onMessagesClicked = { navController.navigate(MessagingRoute) },
-                onSearchClicked = { navController.navigate(SearchRoute) },
-                onProfileClicked = { navController.navigate(ProfileRoute()) },
+                onMessagesClick = { navController.navigate(MessagingRoute) },
+                onSearchClick = { navController.navigate(SearchRoute) },
+                onProfileClick = { navController.navigate(ProfileRoute()) },
             )
         }
     ) { paddingValues ->

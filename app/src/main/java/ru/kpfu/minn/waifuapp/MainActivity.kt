@@ -125,7 +125,4 @@ class MainActivity: ComponentActivity(), DependenciesContainer {
     override fun <T : ComponentDependencies> getDependencies(key: Class<T>): T =
         componentDependenciesManager.getDependencies(key)
 
-    companion object {
-        const val TOPIC_NAME = "WAIFU_APP_TOPIC"
-    }
 }
